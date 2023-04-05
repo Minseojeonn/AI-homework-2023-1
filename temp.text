@@ -1,0 +1,17 @@
+elif event.type == pygame.MOUSEBUTTONDOWN:
+        if event.button == 1:
+            if star.collidepoint(event.pos):
+                star_dragging = True
+                mouse_x, mouse_y = event.pos
+                offset_x = star.x - mouse_x
+                offset_y = star.y - mouse_y
+
+    elif event.type == pygame.MOUSEBUTTONUP:
+        if event.button == 1:
+            star_dragging = False
+
+    elif event.type == pygame.MOUSEMOTION:
+        if star_dragging:
+            mouse_x, mouse_y = event.pos
+            star.x = mouse_x + offset_x
+            star.y = mouse_y + offset_y
