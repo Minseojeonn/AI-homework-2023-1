@@ -55,8 +55,6 @@ grid = [[] for _ in range(vertical)]
 for i in range(vertical):
     grid[i] = [[]for _ in range(stripe)]
 
-grid[2][2]='block'
-
 #game Loop
 while True: # 아래의 코드를 무한 반복한다.
     event = pygame.event.poll() #이벤트 처리
