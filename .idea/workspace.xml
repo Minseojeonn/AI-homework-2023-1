@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11a87ded-799b-4b3e-bdf3-ad6d4b56853f" name="Changes" comment="make block">
-      <change afterPath="$PROJECT_DIR$/temp.text" afterDir="false" />
+    <list default="true" id="11a87ded-799b-4b3e-bdf3-ad6d4b56853f" name="Changes" comment="make buttons.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680697808366</updated>
-      <workItem from="1680697810256" duration="11503000" />
+      <workItem from="1680697810256" duration="13038000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1680697937261</created>
@@ -96,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680706694203</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="make buttons.">
+      <created>1680709374082</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680709374082</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,7 +126,8 @@
     <MESSAGE value="draw gird." />
     <MESSAGE value="draw font" />
     <MESSAGE value="make block" />
-    <option name="LAST_COMMIT_MESSAGE" value="make block" />
+    <MESSAGE value="make buttons." />
+    <option name="LAST_COMMIT_MESSAGE" value="make buttons." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/untitled$Utils.coverage" NAME="Utils Coverage Results" MODIFIED="1680705247042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

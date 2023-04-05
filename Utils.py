@@ -25,3 +25,8 @@ def fill_block(game_world,width,height,vertical,stripe,grid):
                 x_image = font1.render('X', True, (255, 0, 0))
                 x_image = pygame.transform.scale(x_image,(col_CELL_SIZE,row_CELL_SIZE))
                 game_world.blit(x_image, (column_index * col_CELL_SIZE, row_index * row_CELL_SIZE))
+
+
+def make_random_blocks(grid,inc_obstacle_ratio):
+    block_count = len(grid)*len(grid[0])
+    print(block_count)
