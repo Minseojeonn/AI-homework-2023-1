@@ -3,6 +3,7 @@ import sys # 외장 모듈
 import argparse
 import Utils
 import pygame_gui
+import Algorithm
 from pygame.locals import * # QUIT 등의 pygame 상수들을 로드한다.
 
 
@@ -99,7 +100,7 @@ while True: # 아래의 코드를 무한 반복한다.
             if event.ui_element == Rand_button:
                 Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
-                pass
+                Algorithm.A_star_manhaten(grid)
             if event.ui_element == Reset_button:
                 star.left = 0 #location
                 star.top = 0 #location

@@ -44,3 +44,11 @@ def make_random_blocks(grid,inc_obstacle_ratio):
         if grid[randomint_vertical][randomint_stripe] == []:
             grid[randomint_vertical][randomint_stripe] = 'block'
             huddle_num = huddle_num - 1
+
+def make_bound_block(grid):
+    for i, gr in enumerate(grid):
+        grid[i].append(['bound_block'])
+        grid[i].insert(0,['bound_block'])
+    upper_down_block = [['bound_block'] for _ in range(len(grid[i]))]
+    grid.insert(0,upper_down_block)
+    grid.append(upper_down_block)
