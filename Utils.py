@@ -35,10 +35,12 @@ def make_random_blocks(grid,inc_obstacle_ratio):
     huddle_num = int(block_count*inc_obstacle_ratio)
     for i, gr in enumerate(grid):
         for j, g in enumerate(gr):
-            grid[i][j] = []
+            if grid[i][j] == 'block':
+                grid[i][j] = []
 
     while huddle_num > 0:
         randomint_stripe = random.randrange(0,block_stripe)
         randomint_vertical = random.randrange(0,block_vertical)
-        grid[randomint_vertical][randomint_stripe] = 'block'
-        huddle_num = huddle_num - 1
+        if grid[randomint_vertical][randomint_stripe] == []:
+            grid[randomint_vertical][randomint_stripe] = 'block'
+            huddle_num = huddle_num - 1

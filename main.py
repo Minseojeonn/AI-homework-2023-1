@@ -64,6 +64,9 @@ grid = [[] for _ in range(vertical)]
 for i in range(vertical):
     grid[i] = [[]for _ in range(stripe)]
 
+grid[0][0] = 'star'
+grid[vertical-1][stripe-1] = 'door'
+
 #buttons - GUI
 Rand_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 650), (170, 50)),
                                             text='Random walls',
@@ -84,13 +87,13 @@ while True: # 아래의 코드를 무한 반복한다.
     for event in pygame.event.get(): #이벤트 처리
         if event.type == pygame.QUIT: #게임종료
             break
-        elif event.type == pygame.MOUSEBUTTONDOWN: #마우스클릭
+        if event.type == pygame.MOUSEBUTTONDOWN: #마우스클릭
             column_index = event.pos[0] # CELL_SIZE
             row_index = event.pos[1] # CELL_SIZE
-            if column_index<=height and row_index <=width: #Map상의 block 생성
+            if column_index<=height and row_index <=width: #Map상의 block 생성 클릭으로.
                 if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='block':
                     grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] = []
-                else:
+                elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] == [] :
                     grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]='block'
         if event.type == pygame_gui.UI_BUTTON_PRESSED: #GUI 버튼 클릭 부분.
             if event.ui_element == Rand_button:
@@ -98,7 +101,13 @@ while True: # 아래의 코드를 무한 반복한다.
             if event.ui_element == Start_A_Search_button:
                 pass
             if event.ui_element == Reset_button:
-                pass
+                star.left = 0 #location
+                star.top = 0 #location
+                door.left = width-int(height/vertical) #location
+                door.top = height-int(width/stripe) #location
+                for i, gr in enumerate(grid):
+                 for j, g in enumerate(gr):
+                    grid[i][j] = []
             if event.ui_element == Exit_button:
                 exit()
 
