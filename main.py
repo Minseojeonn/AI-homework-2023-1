@@ -101,7 +101,7 @@ while True: # 아래의 코드를 무한 반복한다.
                 column_index = event.pos[0] # CELL_SIZE
                 row_index = event.pos[1] # CELL_SIZE
                 if column_index<=height and row_index <=width: #Map상의 block 생성 클릭으로.
-                    print(int(row_index/int(height/stripe)),int(column_index/int(width/vertical)) )
+                    #print(int(row_index/int(height/stripe)),int(column_index/int(width/vertical)) )
                     if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='star': #star drag
                         star_dragging = True
                         mouse_x, mouse_y = event.pos
