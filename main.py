@@ -4,6 +4,7 @@ import argparse
 import Utils
 import pygame_gui
 import Algorithm
+import modify_pygame
 from pygame.locals import * # QUIT 등의 pygame 상수들을 로드한다.
 
 
@@ -38,16 +39,22 @@ fps = 10
 pygame.init() # 초기화
 
 pygame.display.set_caption('A* Search') # 창 제목 설정
-game_world = pygame.display.set_mode((width+100, height+60), 0, 32)
+game_world = pygame.display.set_mode((width+150, height+60), 0, 32)
 clock = pygame.time.Clock() # 시간 설정
-
-manager = pygame_gui.UIManager((width+100, height+100))
+manager = pygame_gui.UIManager((width+150, height+60))
 
 #asset
+#radio_button
+boxes = []
+uclid_button = modify_pygame.Checkbox(game_world,610,200,0,caption='uclid')
+uclid_button.checked = True
+manhaten_button = modify_pygame.Checkbox(game_world,610,250,1,caption='manhaten')
+boxes.append(uclid_button)
+boxes.append(manhaten_button)
 #star
 star_image = pygame.image.load('star.png')
 star = star_image.get_rect()
-star_image = pygame.transform.scale(star_image,(int(height/vertical),int(width/stripe) ))
+star_image = pygame.transform.scale(star_image,(int(height/vertical),int(width/stripe)))
 star.left = 0 #location
 star.top = 0 #location
 star_dragging = False
@@ -67,7 +74,7 @@ for i in range(stripe):
 
 grid[0][0] = 'star'
 grid[stripe-1][vertical-1] = 'door'
-print(len(grid),len(grid[0]))
+selected_func = 'uclid'
 
 #buttons - GUI
 Rand_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 600), (170, 50)),
@@ -109,6 +116,14 @@ while True: # 아래의 코드를 무한 반복한다.
                         grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] = []
                     elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] == [] : #block on
                         grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]='block'
+                for box in boxes:
+                    box.update_checkbox(event)
+                    if box.checked is True:
+                        selected_func = box.caption
+                        for b in boxes:
+                            if b != box:
+                                b.checked = False
+
         elif event.type == pygame.MOUSEBUTTONUP: ##drag star
             if event.button == 1:
                 if star_dragging:
@@ -144,7 +159,7 @@ while True: # 아래의 코드를 무한 반복한다.
             if event.ui_element == Rand_button:
                 Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
-                print(Algorithm.aStar(grid,'uclid'))
+                print(Algorithm.aStar(grid,selected_func))
             if event.ui_element == Reset_button:
                 star.left = 0 #location
                 star.top = 0 #location
@@ -167,6 +182,9 @@ while True: # 아래의 코드를 무한 반복한다.
     Utils.fill_block(game_world,height,width,stripe,vertical,grid)
     game_world.blit(star_image,star)
     game_world.blit(door_image,door)
+    for box in boxes:
+        box.render_checkbox()
+    print(selected_func)
     clock.tick(fps) # 화면 표시 회수 설정만큼 루프의 간격을 둔다
     manager.update(time_delta)
     manager.draw_ui(game_world)
