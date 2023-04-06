@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11a87ded-799b-4b3e-bdf3-ad6d4b56853f" name="Changes" comment="done before algorithm">
+    <list default="true" id="11a87ded-799b-4b3e-bdf3-ad6d4b56853f" name="Changes" comment="add block">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +32,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/j/Library/Mobile Documents/com~apple~CloudDocs/AI-2023-star/untitled&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -62,7 +63,8 @@
       <workItem from="1680743391943" duration="470000" />
       <workItem from="1680757665137" duration="1064000" />
       <workItem from="1680760716180" duration="1471000" />
-      <workItem from="1680764680164" duration="1237000" />
+      <workItem from="1680764680164" duration="1371000" />
+      <workItem from="1680776941356" duration="5471000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1680697937261</created>
@@ -120,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680761588549</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add block">
+      <created>1680766026924</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680766026924</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,7 +154,8 @@
     <MESSAGE value="make block" />
     <MESSAGE value="make buttons." />
     <MESSAGE value="done before algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="done before algorithm" />
+    <MESSAGE value="add block" />
+    <option name="LAST_COMMIT_MESSAGE" value="add block" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/untitled$Utils.coverage" NAME="Utils Coverage Results" MODIFIED="1680705247042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

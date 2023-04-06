@@ -84,19 +84,59 @@ Exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((600, 650),
 #game Loop
 while True: # 아래의 코드를 무한 반복한다.
     time_delta = clock.tick(fps)/1000.0
-    #event
+    #Pygame Event 처리
     for event in pygame.event.get(): #이벤트 처리
         if event.type == pygame.QUIT: #게임종료
             break
-        if event.type == pygame.MOUSEBUTTONDOWN: #마우스클릭
-            column_index = event.pos[0] # CELL_SIZE
-            row_index = event.pos[1] # CELL_SIZE
-            if column_index<=height and row_index <=width: #Map상의 block 생성 클릭으로.
-                if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='block':
-                    grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] = []
-                elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] == [] :
-                    grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]='block'
-        if event.type == pygame_gui.UI_BUTTON_PRESSED: #GUI 버튼 클릭 부분.
+        elif event.type == pygame.MOUSEBUTTONDOWN: #마우스클릭
+            if event.button == 1:
+                column_index = event.pos[0] # CELL_SIZE
+                row_index = event.pos[1] # CELL_SIZE
+                if column_index<=height and row_index <=width: #Map상의 block 생성 클릭으로.
+                    if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='star': #star drag
+                        star_dragging = True
+                        mouse_x, mouse_y = event.pos
+                        offset_x = star.x - mouse_x
+                        offset_y = star.y - mouse_y
+                    elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='door': #drag door
+                        door_dragging = True
+                        mouse_x, mouse_y = event.pos
+                        offset_x = door.x - mouse_x
+                        offset_y = door.y - mouse_y
+                    elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='block': #block off
+                        grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] = []
+                    elif grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] == [] : #block on
+                        grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]='block'
+        elif event.type == pygame.MOUSEBUTTONUP: ##drag star
+            if event.button == 1:
+                if star_dragging:
+                    star_dragging = False
+                if door_dragging:
+                    door_dragging = False
+        elif event.type == pygame.MOUSEMOTION: ##drag star
+            if star_dragging:
+                mouse_x, mouse_y = event.pos
+                origin_star_x = star.x
+                origin_star_y = star.y
+                temp_star_x = mouse_x + offset_x
+                temp_star_y = mouse_y + offset_y
+                grid[int(origin_star_y/int(height/vertical))][int(origin_star_x/int(width/stripe))] = []
+                grid[int(temp_star_y/int(height/vertical))][int(temp_star_x/int(width/stripe))] = 'star'
+                star.x = int(temp_star_x/int(width/stripe)) * int(width/stripe)
+                star.y = int(temp_star_y/int(height/vertical)) * int(height/vertical)
+            if door_dragging: # drag_door
+                mouse_x, mouse_y = event.pos
+                origin_door_x = door.x
+                origin_door_y = door.y
+                temp_door_x = mouse_x + offset_x
+                temp_door_y = mouse_y + offset_y
+                grid[int(origin_door_y/int(height/vertical))][int(origin_door_x/int(width/stripe))] = []
+                grid[int(temp_door_y/int(height/vertical))][int(temp_door_x/int(width/stripe))] = 'door'
+                door.x = int(temp_door_x/int(width/stripe)) * int(width/stripe)
+                door.y = int(temp_door_y/int(height/vertical)) * int(height/vertical)
+
+        #GUI evnet처리
+        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == Rand_button:
                 Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
@@ -109,6 +149,8 @@ while True: # 아래의 코드를 무한 반복한다.
                 for i, gr in enumerate(grid):
                  for j, g in enumerate(gr):
                     grid[i][j] = []
+                grid[0][0] = 'star'
+                grid[vertical-1][stripe-1] = 'door'
             if event.ui_element == Exit_button:
                 exit()
 
