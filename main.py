@@ -38,7 +38,7 @@ fps = 10
 pygame.init() # 초기화
 
 pygame.display.set_caption('A* Search') # 창 제목 설정
-game_world = pygame.display.set_mode((width+100, height+100), 0, 32)
+game_world = pygame.display.set_mode((width+100, height+60), 0, 32)
 clock = pygame.time.Clock() # 시간 설정
 
 manager = pygame_gui.UIManager((width+100, height+100))
@@ -61,24 +61,25 @@ door.top = height-int(width/stripe) #location
 door_dragging = False
 
 #Map - pygame
-grid = [[] for _ in range(vertical)]
-for i in range(vertical):
-    grid[i] = [[]for _ in range(stripe)]
+grid = [[] for _ in range(stripe)]
+for i in range(stripe):
+    grid[i] = [[]for _ in range(vertical)]
 
 grid[0][0] = 'star'
-grid[vertical-1][stripe-1] = 'door'
+grid[stripe-1][vertical-1] = 'door'
+print(len(grid),len(grid[0]))
 
 #buttons - GUI
-Rand_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 650), (170, 50)),
+Rand_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 600), (170, 50)),
                                             text='Random walls',
                                             manager=manager)
-Start_A_Search_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((200, 650), (170, 50)),
+Start_A_Search_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((180, 600), (170, 50)),
                                            text='Start_A*_Search',
                                            manager=manager)
-Reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 650), (170, 50)),
+Reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((360, 600), (170, 50)),
                                            text='Reset',
                                            manager=manager)
-Exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((600, 650), (170, 50)),
+Exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((540, 600), (170, 50)),
                                            text='EXIT',
                                            manager=manager)
 #game Loop
@@ -93,6 +94,7 @@ while True: # 아래의 코드를 무한 반복한다.
                 column_index = event.pos[0] # CELL_SIZE
                 row_index = event.pos[1] # CELL_SIZE
                 if column_index<=height and row_index <=width: #Map상의 block 생성 클릭으로.
+                    print(int(row_index/int(height/stripe)),int(column_index/int(width/vertical)) )
                     if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='star': #star drag
                         star_dragging = True
                         mouse_x, mouse_y = event.pos
@@ -120,27 +122,29 @@ while True: # 아래의 코드를 무한 반복한다.
                 origin_star_y = star.y
                 temp_star_x = mouse_x + offset_x
                 temp_star_y = mouse_y + offset_y
-                grid[int(origin_star_y/int(height/vertical))][int(origin_star_x/int(width/stripe))] = []
-                grid[int(temp_star_y/int(height/vertical))][int(temp_star_x/int(width/stripe))] = 'star'
-                star.x = int(temp_star_x/int(width/stripe)) * int(width/stripe)
-                star.y = int(temp_star_y/int(height/vertical)) * int(height/vertical)
+                #print(int(temp_star_y/int(height/vertical)), int(temp_star_x/int(width/stripe)))
+                grid[int(origin_star_y/int(height/stripe))][int(origin_star_x/int(width/vertical))] = []
+                grid[int(temp_star_y/int(height/stripe))][int(temp_star_x/int(width/vertical))] = 'star'
+                star.x = int(temp_star_x/int(width/vertical)) * int(width/vertical)
+                star.y = int(temp_star_y/int(height/stripe)) * int(height/stripe)
             if door_dragging: # drag_door
                 mouse_x, mouse_y = event.pos
                 origin_door_x = door.x
                 origin_door_y = door.y
                 temp_door_x = mouse_x + offset_x
                 temp_door_y = mouse_y + offset_y
-                grid[int(origin_door_y/int(height/vertical))][int(origin_door_x/int(width/stripe))] = []
-                grid[int(temp_door_y/int(height/vertical))][int(temp_door_x/int(width/stripe))] = 'door'
-                door.x = int(temp_door_x/int(width/stripe)) * int(width/stripe)
-                door.y = int(temp_door_y/int(height/vertical)) * int(height/vertical)
+                #print(int(temp_door_y/int(height/vertical)), int(temp_door_x/int(width/stripe)))
+                grid[int(origin_door_y/int(height/stripe))][int(origin_door_x/int(width/vertical))] = []
+                grid[int(temp_door_y/int(height/stripe))][int(temp_door_x/int(width/vertical))] = 'door'
+                door.x = int(temp_door_x/int(width/vertical)) * int(width/vertical)
+                door.y = int(temp_door_y/int(height/stripe)) * int(height/stripe)
 
         #GUI evnet처리
         elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == Rand_button:
                 Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
-                Algorithm.A_star_manhaten(grid)
+                print(Algorithm.aStar(grid,'uclid'))
             if event.ui_element == Reset_button:
                 star.left = 0 #location
                 star.top = 0 #location
@@ -150,7 +154,7 @@ while True: # 아래의 코드를 무한 반복한다.
                  for j, g in enumerate(gr):
                     grid[i][j] = []
                 grid[0][0] = 'star'
-                grid[vertical-1][stripe-1] = 'door'
+                grid[stripe-1][vertical-1] = 'door'
             if event.ui_element == Exit_button:
                 exit()
 
@@ -160,7 +164,7 @@ while True: # 아래의 코드를 무한 반복한다.
     #view
     game_world.fill(white) # display를 하얀색으로 채운다
     Utils.draw_grid(game_world,width,height,vertical,stripe)
-    Utils.fill_block(game_world,width,height,vertical,stripe,grid)
+    Utils.fill_block(game_world,height,width,stripe,vertical,grid)
     game_world.blit(star_image,star)
     game_world.blit(door_image,door)
     clock.tick(fps) # 화면 표시 회수 설정만큼 루프의 간격을 둔다
