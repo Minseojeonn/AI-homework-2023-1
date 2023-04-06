@@ -2,7 +2,9 @@ import Utils
 import copy
 
 def loss_func_manhaten(node_cur,node_end):
-    return abs(node_cur.position[0] - node_end.position[0]) + abs(node_cur.position[1] - node_end.position[1])
+    dx = abs(node_cur.position[0] - node_end.position[0])
+    dy = abs(node_cur.position[1] - node_end.position[1])
+    return dx + dy
 
 def loss_func_uclid(node_cur,node_end):
     return ((node_cur.position[0] - node_end.position[0]) ** 2) + ((node_cur.position[1] - node_end.position[1]) ** 2)
@@ -19,6 +21,7 @@ class Node:
 
     def __eq__(self, other):
         return self.position == other.position
+
 
 
 def aStar(grid_origin, distance):
@@ -87,7 +90,7 @@ def aStar(grid_origin, distance):
                 currentNode.position[1] + newPosition[1])  # Y
 
             # 장애물이 있으면 다른 위치 불러오기
-            print(nodePosition[0],nodePosition[1])
+            #print(nodePosition[0],nodePosition[1])
             if grid[nodePosition[0]][nodePosition[1]] == 'block':
                 continue
 

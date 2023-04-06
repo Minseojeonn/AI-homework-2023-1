@@ -18,6 +18,10 @@ def draw_grid(game_world, WIDTH, HEIGHT, vertical, stripe):
 # colum = 세로
 # row = 가로
 
+
+
+
+
 def fill_block(game_world, width, height, vertical, stripe, grid):
     col_CELL_SIZE = int(width / vertical)
     row_CELL_SIZE = int(height / stripe)
@@ -26,7 +30,11 @@ def fill_block(game_world, width, height, vertical, stripe, grid):
         for row_index in range(vertical):
             mark = grid[row_index][column_index]
             if mark == 'block':
-                x_image = font1.render('X', True, (255, 0, 0))
+                x_image = pygame.image.load('Rock.png')
+                x_image = pygame.transform.scale(x_image, (row_CELL_SIZE,col_CELL_SIZE))
+                game_world.blit(x_image, (column_index * row_CELL_SIZE , row_index * col_CELL_SIZE))
+            if mark == 'load':
+                x_image = pygame.image.load('path.png')
                 x_image = pygame.transform.scale(x_image, (row_CELL_SIZE,col_CELL_SIZE))
                 game_world.blit(x_image, (column_index * row_CELL_SIZE , row_index * col_CELL_SIZE))
 
@@ -63,7 +71,8 @@ def find_star_and_door(grid):
     star = None
 
     for gr in grid:
-        print(gr)
+        #print(gr)
+        pass
 
     for i, gr in enumerate(grid):
         for j, g in enumerate(gr):
@@ -77,3 +86,8 @@ def find_star_and_door(grid):
         exit()
     else:
         return star, door
+
+
+def fill_path(grid,loads):
+    for load in loads[1:-1]:
+        grid[load[0]-1][load[1]-1] = 'load'

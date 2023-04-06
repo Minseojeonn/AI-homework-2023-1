@@ -159,7 +159,7 @@ while True: # 아래의 코드를 무한 반복한다.
             if event.ui_element == Rand_button:
                 Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
-                print(Algorithm.aStar(grid,selected_func))
+                Utils.fill_path(grid,Algorithm.aStar(grid,selected_func))
             if event.ui_element == Reset_button:
                 star.left = 0 #location
                 star.top = 0 #location
@@ -184,7 +184,6 @@ while True: # 아래의 코드를 무한 반복한다.
     game_world.blit(door_image,door)
     for box in boxes:
         box.render_checkbox()
-    print(selected_func)
     clock.tick(fps) # 화면 표시 회수 설정만큼 루프의 간격을 둔다
     manager.update(time_delta)
     manager.draw_ui(game_world)
