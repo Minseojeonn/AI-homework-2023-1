@@ -1,6 +1,7 @@
 import pygame # pygame 모듈의 임포트
 import sys # 외장 모듈
 import argparse
+import random
 from pygame.locals import * # QUIT 등의 pygame 상수들을 로드한다.
 
 def draw_grid(game_world, WIDTH, HEIGHT, vertical, stripe):
@@ -28,5 +29,16 @@ def fill_block(game_world,width,height,vertical,stripe,grid):
 
 
 def make_random_blocks(grid,inc_obstacle_ratio):
-    block_count = len(grid)*len(grid[0])
-    print(block_count)
+    block_vertical = len(grid)
+    block_stripe = len(grid[0])
+    block_count = block_vertical*block_stripe
+    huddle_num = int(block_count*inc_obstacle_ratio)
+    for i, gr in enumerate(grid):
+        for j, g in enumerate(gr):
+            grid[i][j] = []
+
+    while huddle_num > 0:
+        randomint_stripe = random.randrange(0,block_stripe)
+        randomint_vertical = random.randrange(0,block_vertical)
+        grid[randomint_vertical][randomint_stripe] = 'block'
+        huddle_num = huddle_num - 1

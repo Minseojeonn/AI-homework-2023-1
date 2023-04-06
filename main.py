@@ -74,7 +74,9 @@ Start_A_Search_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((
 Reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 650), (170, 50)),
                                            text='Reset',
                                            manager=manager)
-
+Exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((600, 650), (170, 50)),
+                                           text='EXIT',
+                                           manager=manager)
 #game Loop
 while True: # 아래의 코드를 무한 반복한다.
     time_delta = clock.tick(fps)/1000.0
@@ -85,19 +87,20 @@ while True: # 아래의 코드를 무한 반복한다.
         elif event.type == pygame.MOUSEBUTTONDOWN: #마우스클릭
             column_index = event.pos[0] # CELL_SIZE
             row_index = event.pos[1] # CELL_SIZE
-            if column_index<=height and row_index <=width:
+            if column_index<=height and row_index <=width: #Map상의 block 생성
                 if grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]=='block':
                     grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))] = []
                 else:
                     grid[int(row_index/int(height/stripe))][int(column_index/int(width/vertical))]='block'
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
+        if event.type == pygame_gui.UI_BUTTON_PRESSED: #GUI 버튼 클릭 부분.
             if event.ui_element == Rand_button:
-                Utils.make_random_blocks(grid,inc_obstacle_ratio)
+                Utils.make_random_blocks(grid, inc_obstacle_ratio)
             if event.ui_element == Start_A_Search_button:
                 pass
             if event.ui_element == Reset_button:
                 pass
-
+            if event.ui_element == Exit_button:
+                exit()
 
         manager.process_events(event)
 
@@ -113,4 +116,4 @@ while True: # 아래의 코드를 무한 반복한다.
     manager.draw_ui(game_world)
     pygame.display.update() # 화면을 업데이트한다
 
-pygame.quit()
+exit()
