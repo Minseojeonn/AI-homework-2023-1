@@ -34,7 +34,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 blue = (0, 0, 255)
 Red = (255, 0, 0)
-fps = 10
+fps = 100
 
 pygame.init() # 초기화
 
